@@ -1,0 +1,10 @@
+
+<table>
+  <tr *ngFor="let user of users" [routerLink]="'/user/' + user.id">
+    <th>{{user.id}}</th>
+    <th>{{user.username}}</th>
+    <th></th>
+  </tr>
+</table>
+
+<router-outlet></router-outlet>
