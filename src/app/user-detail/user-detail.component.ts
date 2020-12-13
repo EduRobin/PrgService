@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IUsersEntity, UsersService} from '../users.service';
-import {delay} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -9,25 +9,33 @@ import {delay} from 'rxjs/operators';
   styleUrls: ['./user-detail.component.scss']
 })
 export class UserDetailComponent implements OnInit {
+  user: IUsersEntity;
+  edit = false;
+  newUsername: string;
 
-  private user: IUsersEntity;
-
-  constructor(private readonly activatedRoute: ActivatedRoute, private readonly usersService: UsersService, private readonly router: Router) { }
+  constructor(private readonly  activatedRoute: ActivatedRoute, private readonly  usersService: UsersService, private readonly router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe(p => {
-      const id: string = p.get('id'); // '1'
-      const idNum = parseInt(id, 10);
-      this.usersService.getUserById(idNum)
-        .pipe(delay(500))
-        .subscribe(
+    this.activatedRoute.paramMap.subscribe(
+      p => {
+        const id = p.get('id');
+        const idNumber = parseInt(id, 10);
+        console.log(idNumber);
+        this.usersService.getUserById(idNumber).subscribe(
           u => this.user = u,
-          e => {
-            console.log(e);
-            this.router.navigateByUrl('/users');
-          }
-        );
-    });
+          e => console.error(e));
+      }
+    );
+    console.log(this.user);
+  }
+
+  editUser(id: number): void {
+    this.usersService.editUser(id, this.newUsername);
+    this.edit = false;
+    this.router.navigateByUrl('/users');
+  }
+  showEdit(): void {
+    this.edit = true;
   }
 
 }

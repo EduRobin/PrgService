@@ -1,2 +1,12 @@
+<div id="userinfo">
+  <h1 class="text-center">Current User: <span>{{user.username}}</span></h1>
 
-<p>{{user?.username}}</p>
+  <label *ngIf="!edit">{{user.id}}</label>
+  <label *ngIf="!edit">{{user.username}}</label>
+  <button type="button" class="btn btn-success" name="edit" value="edit" *ngIf="user && !edit" (click)="showEdit()">Edit user</button>
+  <form>
+    <input *ngIf="edit" type="text" placeholder="current username: {{user.username}}" name="newUsername" value="{{user.username}}" [(ngModel)]="newUsername">
+  </form>
+
+  <button type="button" class="btn btn-danger" name="save" *ngIf="edit" (click)="editUser(user.id)">Save changes</button>
+</div>

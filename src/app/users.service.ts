@@ -32,6 +32,15 @@ export class UsersService {
     this.users.push(user);
     return of(user);
   }
+
+  editUser(id: number, newUsername: string): boolean {
+    if (this.users.find(u => u.id === id)) {
+      const user: IUsersEntity = this.users.find(u => u.id === id);
+      if (newUsername.length > 1) {user.username = newUsername; }
+      return true;
+    }
+    return false;
+  }
 }
 
 
