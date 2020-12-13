@@ -27,8 +27,8 @@ export class UsersService {
   }
 
   create(username: string): Observable<IUsersEntity> {
-    const id = ++this.nextId;
-    const user: IUsersEntity = {id, username};
+    const user: IUsersEntity = {id: this.nextId, username};
+    this.nextId++;
     this.users.push(user);
     return of(user);
   }

@@ -8,8 +8,7 @@ import {UserCreateComponent} from './user-create/user-create.component';
 const routes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'user.create', component: UserCreateComponent},
-  {path: 'user/:id', component: UserDetailComponent},
-  {path: '**', redirectTo: 'user.create'}
+  {path: 'user/:id', component: UserDetailComponent}
 ];
 
 @NgModule({
